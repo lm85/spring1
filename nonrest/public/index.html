@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Spring a AJAX příklad</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $.ajax({url: "http://localhost:8080/employees/", success: function(result){
+    console.log(result);
+    //$("#div1").text(result[0]["id"]);
+    //$("#div1").text(result["id"]);
+    
+     var table='<table class="table table-striped">';
+      
+      $.each( result, function( index, item){
+        console.log(index);
+        console.log(item);
+	table+='<tr>';
+        $.each( item, function( key, item2){
+            console.log(item[key]);
+            table+='<td>'+item[key]+'</td>';       
+        
+        });
+        table+='</tr>';
+      });
+      table+='</table>';
+      
+      $('#div1').html(table);
+      $('#div1').dataTable();
+      
+    }});
+  });
+});
+</script>
+</head>
+<body>
+<button>Get External Content</button>
+<div id="div1">...</div>
+
+
+
+</body>
+</html>
